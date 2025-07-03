@@ -23,25 +23,25 @@ Complete AES-128 cryptographic engine with:
 
 ```mermaid
 graph TD
-    A[📄 128-bit Plaintext<br/>Input Data] --> B[🔄 Initial Round<br/>Round 0]
-    B --> C[🔑 AddRoundKey<br/>XOR with Key[0]]
-    C --> D[🔄 Main Rounds<br/>Rounds 1-9]
+    A["📄 128-bit Plaintext<br/>Input Data"] --> B["🔄 Initial Round<br/>Round 0"]
+    B --> C["🔑 AddRoundKey<br/>XOR with Key 0"]
+    C --> D["🔄 Main Rounds<br/>Rounds 1-9"]
     
-    D --> E[🔀 SubBytes<br/>S-Box Substitution]
-    E --> F[↩️ ShiftRows<br/>Circular Left Shift]
-    F --> G[🎛️ MixColumns<br/>Matrix Multiplication]
-    G --> H[🔑 AddRoundKey<br/>XOR with Key[i]]
-    H --> I{🔄 Round<br/>Complete?}
-    I -->|🔄 Continue| D
-    I -->|✅ Final Round| J[🏁 Final Round<br/>Round 10]
+    D --> E["🔀 SubBytes<br/>S-Box Substitution"]
+    E --> F["↩️ ShiftRows<br/>Circular Left Shift"]
+    F --> G["🎛️ MixColumns<br/>Matrix Multiplication"]
+    G --> H["🔑 AddRoundKey<br/>XOR with Key i"]
+    H --> I{"🔄 Round<br/>Complete?"}
+    I -->|"🔄 Continue"| D
+    I -->|"✅ Final Round"| J["🏁 Final Round<br/>Round 10"]
     
-    J --> K[🔀 SubBytes<br/>S-Box Substitution]
-    K --> L[↩️ ShiftRows<br/>Circular Left Shift]
-    L --> M[🔑 AddRoundKey<br/>XOR with Key[10]]
-    M --> N[🔐 128-bit Ciphertext<br/>Encrypted Output]
+    J --> K["🔀 SubBytes<br/>S-Box Substitution"]
+    K --> L["↩️ ShiftRows<br/>Circular Left Shift"]
+    L --> M["🔑 AddRoundKey<br/>XOR with Key 10"]
+    M --> N["🔐 128-bit Ciphertext<br/>Encrypted Output"]
     
-    O[🗝️ 128-bit Master Key<br/>Secret Key] --> P[⚙️ Key Expansion<br/>Key Schedule Algorithm]
-    P --> Q[🔑 Round Keys<br/>Keys 0-10]
+    O["🗝️ 128-bit Master Key<br/>Secret Key"] --> P["⚙️ Key Expansion<br/>Key Schedule Algorithm"]
+    P --> Q["🔑 Round Keys<br/>Keys 0-10"]
     Q -.-> C
     Q -.-> H
     Q -.-> M
