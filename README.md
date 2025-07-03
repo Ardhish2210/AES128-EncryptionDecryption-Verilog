@@ -19,38 +19,51 @@ Complete AES-128 cryptographic engine with:
 - ✅ **FPGA-optimized** design
 - ✅ **Comprehensive testbench**
 
-## 📊 AES128 Data Flow
+## 🎯 AES128 Data Flow Architecture
 
 ```mermaid
 graph TD
-    A[128-bit Plaintext] --> B[Initial Round]
-    B --> C[AddRoundKey]
-    C --> D[Round 1-9]
+    A[📄 128-bit Plaintext<br/>Input Data] --> B[🔄 Initial Round<br/>Round 0]
+    B --> C[🔑 AddRoundKey<br/>XOR with Key[0]]
+    C --> D[🔄 Main Rounds<br/>Rounds 1-9]
     
-    D --> E[SubBytes]
-    E --> F[ShiftRows]
-    F --> G[MixColumns]
-    G --> H[AddRoundKey]
-    H --> I{More Rounds?}
-    I -->|Yes| D
-    I -->|No| J[Final Round]
+    D --> E[🔀 SubBytes<br/>S-Box Substitution]
+    E --> F[↩️ ShiftRows<br/>Circular Left Shift]
+    F --> G[🎛️ MixColumns<br/>Matrix Multiplication]
+    G --> H[🔑 AddRoundKey<br/>XOR with Key[i]]
+    H --> I{🔄 Round<br/>Complete?}
+    I -->|🔄 Continue| D
+    I -->|✅ Final Round| J[🏁 Final Round<br/>Round 10]
     
-    J --> K[SubBytes]
-    K --> L[ShiftRows]
-    L --> M[AddRoundKey]
-    M --> N[128-bit Ciphertext]
+    J --> K[🔀 SubBytes<br/>S-Box Substitution]
+    K --> L[↩️ ShiftRows<br/>Circular Left Shift]
+    L --> M[🔑 AddRoundKey<br/>XOR with Key[10]]
+    M --> N[🔐 128-bit Ciphertext<br/>Encrypted Output]
     
-    O[128-bit Key] --> P[Key Expansion]
-    P --> Q[Round Keys 0-10]
-    Q --> C
-    Q --> H
-    Q --> M
+    O[🗝️ 128-bit Master Key<br/>Secret Key] --> P[⚙️ Key Expansion<br/>Key Schedule Algorithm]
+    P --> Q[🔑 Round Keys<br/>Keys 0-10]
+    Q -.-> C
+    Q -.-> H
+    Q -.-> M
     
-    style A fill:#e1f5fe
-    style N fill:#f3e5f5
-    style O fill:#fff3e0
-    style D fill:#e8f5e8
-    style J fill:#fff9c4
+    style A fill:#4FC3F7,stroke:#0277BD,stroke-width:3px,color:#fff
+    style N fill:#AB47BC,stroke:#7B1FA2,stroke-width:3px,color:#fff
+    style O fill:#FFB74D,stroke:#F57800,stroke-width:3px,color:#fff
+    style D fill:#66BB6A,stroke:#388E3C,stroke-width:3px,color:#fff
+    style J fill:#FFEB3B,stroke:#F57F17,stroke-width:3px,color:#000
+    style I fill:#FF7043,stroke:#D84315,stroke-width:3px,color:#fff
+    style P fill:#26C6DA,stroke:#00838F,stroke-width:3px,color:#fff
+    style E fill:#EC407A,stroke:#C2185B,stroke-width:2px,color:#fff
+    style F fill:#42A5F5,stroke:#1976D2,stroke-width:2px,color:#fff
+    style G fill:#9CCC65,stroke:#689F38,stroke-width:2px,color:#fff
+    style K fill:#EC407A,stroke:#C2185B,stroke-width:2px,color:#fff
+    style L fill:#42A5F5,stroke:#1976D2,stroke-width:2px,color:#fff
+    
+    classDef keyOp fill:#FFA726,stroke:#F57C00,stroke-width:2px,color:#fff
+    classDef roundOp fill:#8BC34A,stroke:#558B2F,stroke-width:2px,color:#fff
+    
+    class C,H,M keyOp
+    class B,D,J roundOp
 ```
 
 ## 🏗️ Module Structure
@@ -124,9 +137,7 @@ aes_core aes_inst (
 3. Add tests for new features
 4. Submit pull request
 
-## 📄 License
 
-MIT License - see [LICENSE](LICENSE) file
 
 ---
 
