@@ -141,33 +141,6 @@ AES128-EncryptionDecryption-Verilog/
 └── 📄 LICENSE                      # MIT License
 ```
 
-### 🎯 Module Breakdown
-
-#### 🔐 Encryption Modules
-| Module | Purpose | Location |
-|--------|---------|----------|
-| `AES128_encryption.v` | 🎯 Top-level encryption controller | `AES128_Encryption/` |
-| `encrypt_round.v` | 🔄 Single round encryption logic | `AES128_Encryption/` |
-| `key_expansion.v` | 🔑 128-bit key expansion to 11 round keys | `AES128_Encryption/` |
-| `sub_bytes.v` | 🔄 SubBytes transformation using S-Box | `AES128_Encryption/` |
-| `shift_rows.v` | ↩️ ShiftRows transformation | `AES128_Encryption/` |
-| `mix_columns.v` | 🧮 MixColumns transformation | `AES128_Encryption/` |
-| `add_round_key.v` | 🔑 AddRoundKey XOR operation | `AES128_Encryption/` |
-| `aes_sbox.v` | 📊 AES S-Box lookup table | `AES128_Encryption/` |
-| `sub_words.v` | 🔄 SubWord operation for key schedule | `AES128_Encryption/` |
-
-#### 🔓 Decryption Modules
-| Module | Purpose | Location |
-|--------|---------|----------|
-| `AES128_decryption.v` | 🎯 Top-level decryption controller | `AES128_Decryption/` |
-| `decrypt_round.v` | 🔄 Single round decryption logic | `AES128_Decryption/` |
-| `inverse_SubBytes.v` | 🔄 Inverse SubBytes transformation | `AES128_Decryption/` |
-| `inverse_ShiftRows.v` | ↪️ Inverse ShiftRows transformation | `AES128_Decryption/` |
-| `inverse_MixColumns.v` | 🧮 Inverse MixColumns transformation | `AES128_Decryption/` |
-| `inverse_sbox.v` | 📊 Inverse S-Box lookup table | `AES128_Decryption/` |
-| `key_expansion.v` | 🔑 Key schedule (shared with encryption) | `AES128_Decryption/` |
-| `add_round_key.v` | 🔑 AddRoundKey (same as encryption) | `AES128_Decryption/` |
-
 ## 🚀 Getting Started
 
 ### 📋 Prerequisites
