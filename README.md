@@ -38,42 +38,56 @@ This repository contains a complete implementation of the Advanced Encryption St
 
 ## 🔄 Algorithm Flow
 
-### Encryption Process
+### 🔐 Encryption Process
 ```mermaid
-flowchart TD
-    A[128-bit Plaintext] --> B[Key Expansion]
-    B --> C[Initial Round: AddRoundKey]
-    C --> D[Round 1-9: Main Rounds]
-    D --> E[SubBytes]
-    E --> F[ShiftRows]
-    F --> G[MixColumns]
-    G --> H[AddRoundKey]
-    H --> I{More Rounds?}
-    I -->|Yes| D
-    I -->|No| J[Final Round: Round 10]
-    J --> K[SubBytes]
-    K --> L[ShiftRows]
-    L --> M[AddRoundKey]
-    M --> N[128-bit Ciphertext]
+flowchart LR
+    A["🔤 128-bit<br/>Plaintext"] --> B["🔑 Key<br/>Expansion"]
+    B --> C["⚡ Initial Round<br/>AddRoundKey"]
+    C --> D["🔄 Rounds 1-9"]
+    D --> E["🔄 SubBytes"]
+    E --> F["↩️ ShiftRows"]
+    F --> G["🧮 MixColumns"]
+    G --> H["🔑 AddRoundKey"]
+    H --> I{"🔄 More<br/>Rounds?"}
+    I -->|"✅ Yes"| D
+    I -->|"❌ No"| J["🏁 Final Round 10"]
+    J --> K["🔄 SubBytes"]
+    K --> L["↩️ ShiftRows"]
+    L --> M["🔑 AddRoundKey"]
+    M --> N["🔒 128-bit<br/>Ciphertext"]
+    
+    style A fill:#e1f5fe,stroke:#01579b,stroke-width:3px
+    style N fill:#f3e5f5,stroke:#4a148c,stroke-width:3px
+    style B fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style D fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    style J fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    style I fill:#fce4ec,stroke:#c2185b,stroke-width:2px
 ```
 
-### Decryption Process
+### 🔓 Decryption Process
 ```mermaid
-flowchart TD
-    A[128-bit Ciphertext] --> B[Key Expansion]
-    B --> C[Initial Round: AddRoundKey]
-    C --> D[Round 9-1: Main Rounds]
-    D --> E[InvShiftRows]
-    E --> F[InvSubBytes]
-    F --> G[AddRoundKey]
-    G --> H[InvMixColumns]
-    H --> I{More Rounds?}
-    I -->|Yes| D
-    I -->|No| J[Final Round: Round 0]
-    J --> K[InvShiftRows]
-    K --> L[InvSubBytes]
-    L --> M[AddRoundKey]
-    M --> N[128-bit Plaintext]
+flowchart LR
+    A["🔒 128-bit<br/>Ciphertext"] --> B["🔑 Key<br/>Expansion"]
+    B --> C["⚡ Initial Round<br/>AddRoundKey"]
+    C --> D["🔄 Rounds 9-1"]
+    D --> E["↪️ InvShiftRows"]
+    E --> F["🔄 InvSubBytes"]
+    F --> G["🔑 AddRoundKey"]
+    G --> H["🧮 InvMixColumns"]
+    H --> I{"🔄 More<br/>Rounds?"}
+    I -->|"✅ Yes"| D
+    I -->|"❌ No"| J["🏁 Final Round 0"]
+    J --> K["↪️ InvShiftRows"]
+    K --> L["🔄 InvSubBytes"]
+    L --> M["🔑 AddRoundKey"]
+    M --> N["🔤 128-bit<br/>Plaintext"]
+    
+    style A fill:#f3e5f5,stroke:#4a148c,stroke-width:3px
+    style N fill:#e1f5fe,stroke:#01579b,stroke-width:3px
+    style B fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style D fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style J fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    style I fill:#fce4ec,stroke:#c2185b,stroke-width:2px
 ```
 
 ## 📁 File Structure
@@ -101,28 +115,28 @@ AES128-EncryptionDecryption-Verilog/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Verilog HDL simulator (ModelSim, Vivado, etc.)
-- Basic understanding of cryptography and digital design
+- 🔧 Verilog HDL simulator (ModelSim, Vivado, etc.)
+- 🧠 Basic understanding of cryptography and digital design
 
 ### Quick Start
-1. Clone this repository:
+1. **Clone this repository:**
    ```bash
    git clone https://github.com/Ardhish2210/AES128-EncryptionDecryption-Verilog.git
    cd AES128-EncryptionDecryption-Verilog
    ```
 
-2. Navigate to the desired implementation:
+2. **Navigate to the desired implementation:**
    ```bash
-   cd AES128_Encryption    # For encryption
+   cd AES128_Encryption    # For encryption 🔐
    # or
-   cd AES128_Decryption    # For decryption
+   cd AES128_Decryption    # For decryption 🔓
    ```
 
-3. Compile and simulate using your preferred simulator.
+3. **Compile and simulate** using your preferred simulator! 🎯
 
 ## 💡 Usage
 
-### Encryption Example
+### 🔐 Encryption Example
 ```verilog
 module test_encryption;
     reg [127:0] plaintext = 128'h48656c6c6f20576f726c64212121212121;
@@ -137,7 +151,7 @@ module test_encryption;
 endmodule
 ```
 
-### Decryption Example
+### 🔓 Decryption Example
 ```verilog
 module test_decryption;
     reg [127:0] ciphertext = 128'h... ; // Output from encryption
@@ -155,86 +169,56 @@ endmodule
 ## 📊 Simulation Results
 
 ### Encryption Waveform
-![Encryption Waveform](AES128_Encryption/AES_encryption_waveform.png)
+*[Placeholder for encryption simulation waveform]*
+
+![Encryption Waveform](images/encryption_waveform.png)
 
 ### Decryption Waveform
 *[Placeholder for decryption simulation waveform]*
 
-![Decryption Waveform](AES128_Decryption/AES_decryption_waveform.png)
+![Decryption Waveform](images/decryption_waveform.png)
 
 ### Test Vectors
 The implementation has been verified against NIST test vectors to ensure correctness.
 
 ## 📖 Technical Documentation
 
-For a comprehensive understanding of the AES-128 algorithm, including detailed explanations of each step, mathematical foundations, and implementation details, refer to the official NIST specification included in this repository: `nist.fips.197.pdf`
+For comprehensive AES-128 algorithm details, refer to: `nist.fips.197.pdf`
 
-### Key Components
+### 🔧 Key Components
 
 #### Core Operations
-1. **SubBytes**: Non-linear byte substitution using S-Box
-2. **ShiftRows**: Cyclic shift of state rows
-3. **MixColumns**: Matrix multiplication in GF(2⁸)
-4. **AddRoundKey**: XOR operation with round key
+1. **🔄 SubBytes**: Non-linear byte substitution using S-Box
+2. **↩️ ShiftRows**: Cyclic shift of state rows
+3. **🧮 MixColumns**: Matrix multiplication in GF(2⁸)
+4. **🔑 AddRoundKey**: XOR operation with round key
 
 #### Key Schedule
-The key expansion algorithm generates 11 round keys from the original 128-bit key:
-- Round 0: Original key
-- Rounds 1-10: Derived keys using rotation, substitution, and XOR operations
+Generates 11 round keys from the original 128-bit key:
+- **Round 0**: Original key
+- **Rounds 1-10**: Derived keys using rotation, substitution, and XOR operations
+
+### ✅ Test Vectors
+Implementation verified against NIST test vectors for correctness!
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
+Contributions are welcome! 🎉
 
 ### How to Contribute
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Guidelines
-- Follow existing code style and conventions
-- Add appropriate comments and documentation
-- Test your changes thoroughly
-- Update README if necessary
+1. **Fork** the repository 🍴
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add some amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request 🚀
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License
-
-Copyright (c) 2024 Ardhish2210
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
-## 🔗 References
-
-- [NIST FIPS 197 - Advanced Encryption Standard](https://csrc.nist.gov/publications/detail/fips/197/final)
-- [AES Algorithm Overview](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
-
----
-
-⭐ If you found this project helpful, please consider giving it a star!
+This project is licensed under the **MIT License**.
 
 **Author:** [@Ardhish2210](https://github.com/Ardhish2210)  
 **Last Updated:** July 2025
+
+---
+
+⭐ **If you found this project helpful, please consider giving it a star!** ⭐
