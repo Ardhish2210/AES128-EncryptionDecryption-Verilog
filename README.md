@@ -1,150 +1,242 @@
-# 🔐 AES128 Encryption/Decryption - Verilog
+# AES-128 Encryption and Decryption Implementation
 
-<div align="center">
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/Ardhish2210/AES128-EncryptionDecryption-Verilog.svg)](https://github.com/Ardhish2210/AES128-EncryptionDecryption-Verilog/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Ardhish2210/AES128-EncryptionDecryption-Verilog.svg)](https://github.com/Ardhish2210/AES128-EncryptionDecryption-Verilog/network)
 
-![AES](https://img.shields.io/badge/AES-128%20Bit-blue?style=flat-square)
-![Verilog](https://img.shields.io/badge/Verilog-HDL-orange?style=flat-square)
-![FPGA](https://img.shields.io/badge/FPGA-Ready-green?style=flat-square)
+## 📋 Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Algorithm Flow](#algorithm-flow)
+- [File Structure](#file-structure)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Simulation Results](#simulation-results)
+- [Technical Documentation](#technical-documentation)
+- [Contributing](#contributing)
+- [License](#license)
 
-**Hardware implementation of AES-128 encryption/decryption in Verilog**
+## 🔐 Overview
 
-</div>
+This repository contains a complete implementation of the Advanced Encryption Standard (AES) with 128-bit key length. AES-128 is a symmetric block cipher that encrypts data in 128-bit blocks using a 128-bit key through 10 rounds of cryptographic operations.
 
-## 🚀 What I Built
+**Key Specifications:**
+- **Block Size:** 128 bits (16 bytes)
+- **Key Size:** 128 bits (16 bytes)
+- **Rounds:** 10 rounds
+- **Algorithm Type:** Symmetric Block Cipher
 
-Complete AES-128 cryptographic engine with:
-- ✅ **Encryption & Decryption** modules
-- ✅ **Key expansion** logic  
-- ✅ **Pipelined architecture** for performance
-- ✅ **FPGA-optimized** design
-- ✅ **Comprehensive testbench**
+## ✨ Features
 
-## 🎯 AES128 Data Flow Architecture
+- ✅ Complete AES-128 encryption implementation
+- ✅ Complete AES-128 decryption implementation
+- ✅ Key expansion module
+- ✅ All core AES operations (SubBytes, ShiftRows, MixColumns, AddRoundKey)
+- ✅ Inverse operations for decryption
+- ✅ Comprehensive test benches
+- ✅ Detailed documentation
 
+## 🔄 Algorithm Flow
+
+### Encryption Process
 ```mermaid
-graph TD
-    A["📄 128-bit Plaintext<br/>Input Data"] --> B["🔄 Initial Round<br/>Round 0"]
-    B --> C["🔑 AddRoundKey<br/>XOR with Key 0"]
-    C --> D["🔄 Main Rounds<br/>Rounds 1-9"]
-    
-    D --> E["🔀 SubBytes<br/>S-Box Substitution"]
-    E --> F["↩️ ShiftRows<br/>Circular Left Shift"]
-    F --> G["🎛️ MixColumns<br/>Matrix Multiplication"]
-    G --> H["🔑 AddRoundKey<br/>XOR with Key i"]
-    H --> I{"🔄 Round<br/>Complete?"}
-    I -->|"🔄 Continue"| D
-    I -->|"✅ Final Round"| J["🏁 Final Round<br/>Round 10"]
-    
-    J --> K["🔀 SubBytes<br/>S-Box Substitution"]
-    K --> L["↩️ ShiftRows<br/>Circular Left Shift"]
-    L --> M["🔑 AddRoundKey<br/>XOR with Key 10"]
-    M --> N["🔐 128-bit Ciphertext<br/>Encrypted Output"]
-    
-    O["🗝️ 128-bit Master Key<br/>Secret Key"] --> P["⚙️ Key Expansion<br/>Key Schedule Algorithm"]
-    P --> Q["🔑 Round Keys<br/>Keys 0-10"]
-    Q -.-> C
-    Q -.-> H
-    Q -.-> M
-    
-    style A fill:#4FC3F7,stroke:#0277BD,stroke-width:3px,color:#fff
-    style N fill:#AB47BC,stroke:#7B1FA2,stroke-width:3px,color:#fff
-    style O fill:#FFB74D,stroke:#F57800,stroke-width:3px,color:#fff
-    style D fill:#66BB6A,stroke:#388E3C,stroke-width:3px,color:#fff
-    style J fill:#FFEB3B,stroke:#F57F17,stroke-width:3px,color:#000
-    style I fill:#FF7043,stroke:#D84315,stroke-width:3px,color:#fff
-    style P fill:#26C6DA,stroke:#00838F,stroke-width:3px,color:#fff
-    style E fill:#EC407A,stroke:#C2185B,stroke-width:2px,color:#fff
-    style F fill:#42A5F5,stroke:#1976D2,stroke-width:2px,color:#fff
-    style G fill:#9CCC65,stroke:#689F38,stroke-width:2px,color:#fff
-    style K fill:#EC407A,stroke:#C2185B,stroke-width:2px,color:#fff
-    style L fill:#42A5F5,stroke:#1976D2,stroke-width:2px,color:#fff
-    
-    classDef keyOp fill:#FFA726,stroke:#F57C00,stroke-width:2px,color:#fff
-    classDef roundOp fill:#8BC34A,stroke:#558B2F,stroke-width:2px,color:#fff
-    
-    class C,H,M keyOp
-    class B,D,J roundOp
+flowchart TD
+    A[128-bit Plaintext] --> B[Key Expansion]
+    B --> C[Initial Round: AddRoundKey]
+    C --> D[Round 1-9: Main Rounds]
+    D --> E[SubBytes]
+    E --> F[ShiftRows]
+    F --> G[MixColumns]
+    G --> H[AddRoundKey]
+    H --> I{More Rounds?}
+    I -->|Yes| D
+    I -->|No| J[Final Round: Round 10]
+    J --> K[SubBytes]
+    K --> L[ShiftRows]
+    L --> M[AddRoundKey]
+    M --> N[128-bit Ciphertext]
 ```
 
-## 🏗️ Module Structure
-
-```
-📦 AES Core
-├── 🔹 aes_encrypt.v      # Encryption engine
-├── 🔹 aes_decrypt.v      # Decryption engine  
-├── 🔹 key_expansion.v    # Key scheduler
-├── 🔹 sbox.v            # S-box transformations
-├── 🔹 mix_columns.v     # MixColumns operation
-└── 🔹 aes_testbench.v   # Verification suite
-```
-
-## ⚡ Performance
-
-| Metric | Value |
-|--------|-------|
-| **Throughput** | 1.2 Gbps @ 100MHz |
-| **Latency** | 11 clock cycles |
-| **Logic Usage** | ~2K LUTs |
-| **Compliance** | NIST FIPS 197 ✅ |
-
-## 🚀 Quick Start
-
-```bash
-# Clone repository
-git clone https://github.com/yourusername/AES128-EncryptionDecryption-Verilog.git
-
-# Run simulation
-iverilog -o aes_test aes_testbench.v aes_core.v
-./aes_test
-
-# View waveforms
-gtkwave aes_test.vcd
+### Decryption Process
+```mermaid
+flowchart TD
+    A[128-bit Ciphertext] --> B[Key Expansion]
+    B --> C[Initial Round: AddRoundKey]
+    C --> D[Round 9-1: Main Rounds]
+    D --> E[InvShiftRows]
+    E --> F[InvSubBytes]
+    F --> G[AddRoundKey]
+    G --> H[InvMixColumns]
+    H --> I{More Rounds?}
+    I -->|Yes| D
+    I -->|No| J[Final Round: Round 0]
+    J --> K[InvShiftRows]
+    K --> L[InvSubBytes]
+    L --> M[AddRoundKey]
+    M --> N[128-bit Plaintext]
 ```
 
-## 🧪 Test Results
+## 📁 File Structure
 
-- ✅ **NIST Test Vectors**: All passed
-- ✅ **Encryption/Decryption**: Verified
-- ✅ **Timing Analysis**: Meets constraints
-- ✅ **FPGA Synthesis**: Success on Xilinx/Intel
+```
+AES128-EncryptionDecryption-Verilog/
+├── AES128_Encryption/           # Encryption implementation
+│   ├── aes_encryption.v         # Main encryption module
+│   ├── key_expansion.v          # Key schedule implementation
+│   ├── sub_bytes.v              # SubBytes transformation
+│   ├── shift_rows.v             # ShiftRows transformation
+│   ├── mix_columns.v            # MixColumns transformation
+│   └── add_round_key.v          # AddRoundKey operation
+├── AES128_Decryption/           # Decryption implementation
+│   ├── aes_decryption.v         # Main decryption module
+│   ├── inv_sub_bytes.v          # Inverse SubBytes
+│   ├── inv_shift_rows.v         # Inverse ShiftRows
+│   ├── inv_mix_columns.v        # Inverse MixColumns
+│   └── inv_add_round_key.v      # Inverse AddRoundKey
+├── nist.fips.197.pdf            # Official AES specification
+├── README.md                    # This file
+└── LICENSE                      # MIT License
+```
 
-## 🔧 Usage Example
+## 🚀 Getting Started
 
+### Prerequisites
+- Verilog HDL simulator (ModelSim, Vivado, etc.)
+- Basic understanding of cryptography and digital design
+
+### Quick Start
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/Ardhish2210/AES128-EncryptionDecryption-Verilog.git
+   cd AES128-EncryptionDecryption-Verilog
+   ```
+
+2. Navigate to the desired implementation:
+   ```bash
+   cd AES128_Encryption    # For encryption
+   # or
+   cd AES128_Decryption    # For decryption
+   ```
+
+3. Compile and simulate using your preferred simulator.
+
+## 💡 Usage
+
+### Encryption Example
 ```verilog
-// Instantiate AES core
-aes_core aes_inst (
-    .clk(clk),
-    .rst(rst),
-    .plaintext(128'h00112233445566778899aabbccddeeff),
-    .key(128'h000102030405060708090a0b0c0d0e0f),
-    .encrypt(1'b1),
-    .ciphertext(encrypted_data),
-    .valid(output_valid)
-);
+module test_encryption;
+    reg [127:0] plaintext = 128'h48656c6c6f20576f726c64212121212121;
+    reg [127:0] key = 128'h4d79536563726574000000000000000000;
+    wire [127:0] ciphertext;
+    
+    aes_encryption uut (
+        .plaintext(plaintext),
+        .key(key),
+        .ciphertext(ciphertext)
+    );
+endmodule
 ```
 
-## 📁 Files
+### Decryption Example
+```verilog
+module test_decryption;
+    reg [127:0] ciphertext = 128'h... ; // Output from encryption
+    reg [127:0] key = 128'h4d79536563726574000000000000000000;
+    wire [127:0] plaintext;
+    
+    aes_decryption uut (
+        .ciphertext(ciphertext),
+        .key(key),
+        .plaintext(plaintext)
+    );
+endmodule
+```
 
-- `src/` - Verilog source files
-- `testbench/` - Test files and vectors  
-- `docs/` - Documentation
-- `synthesis/` - FPGA synthesis scripts
+## 📊 Simulation Results
+
+### Encryption Waveform
+*[Placeholder for encryption simulation waveform]*
+
+![Encryption Waveform](images/encryption_waveform.png)
+
+### Decryption Waveform
+*[Placeholder for decryption simulation waveform]*
+
+![Decryption Waveform](images/decryption_waveform.png)
+
+### Test Vectors
+The implementation has been verified against NIST test vectors to ensure correctness.
+
+## 📖 Technical Documentation
+
+For a comprehensive understanding of the AES-128 algorithm, including detailed explanations of each step, mathematical foundations, and implementation details, refer to the official NIST specification included in this repository: `nist.fips.197.pdf`
+
+### Key Components
+
+#### Core Operations
+1. **SubBytes**: Non-linear byte substitution using S-Box
+2. **ShiftRows**: Cyclic shift of state rows
+3. **MixColumns**: Matrix multiplication in GF(2⁸)
+4. **AddRoundKey**: XOR operation with round key
+
+#### Key Schedule
+The key expansion algorithm generates 11 round keys from the original 128-bit key:
+- Round 0: Original key
+- Rounds 1-10: Derived keys using rotation, substitution, and XOR operations
 
 ## 🤝 Contributing
 
+Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
+
+### How to Contribute
 1. Fork the repository
-2. Create feature branch
-3. Add tests for new features
-4. Submit pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
+### Guidelines
+- Follow existing code style and conventions
+- Add appropriate comments and documentation
+- Test your changes thoroughly
+- Update README if necessary
 
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+```
+MIT License
+
+Copyright (c) 2024 Ardhish2210
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## 🔗 References
+
+- [NIST FIPS 197 - Advanced Encryption Standard](https://csrc.nist.gov/publications/detail/fips/197/final)
+- [AES Algorithm Overview](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
 
 ---
 
-<div align="center">
+⭐ If you found this project helpful, please consider giving it a star!
 
-**⭐ Star if you found this useful!**
-
-![GitHub stars](https://img.shields.io/github/stars/yourusername/AES128-EncryptionDecryption-Verilog?style=social)
-
-</div>
+**Author:** [@Ardhish2210](https://github.com/Ardhish2210)  
+**Last Updated:** July 2025
