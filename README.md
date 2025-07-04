@@ -1,20 +1,33 @@
-# AES-128 Encryption and Decryption Implementation
+# 🔐 AES-128 Encryption & Decryption Implementation
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/Ardhish2210/AES128-EncryptionDecryption-Verilog.svg)](https://github.com/Ardhish2210/AES128-EncryptionDecryption-Verilog/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/Ardhish2210/AES128-EncryptionDecryption-Verilog.svg)](https://github.com/Ardhish2210/AES128-EncryptionDecryption-Verilog/network)
+<div align="center">
 
-## 📋 Table of Contents
-- [Overview](#overview)
-- [Features](#features)
-- [Algorithm Flow](#algorithm-flow)
-- [File Structure](#file-structure)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Simulation Results](#simulation-results)
-- [Technical Documentation](#technical-documentation)
-- [Contributing](#contributing)
-- [License](#license)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/Ardhish2210/AES128-EncryptionDecryption-Verilog.svg?style=for-the-badge&logo=github&logoColor=white&color=gold)](https://github.com/Ardhish2210/AES128-EncryptionDecryption-Verilog/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Ardhish2210/AES128-EncryptionDecryption-Verilog.svg?style=for-the-badge&logo=github&logoColor=white&color=ff69b4)](https://github.com/Ardhish2210/AES128-EncryptionDecryption-Verilog/network)
+[![Verilog](https://img.shields.io/badge/Verilog-HDL-blue.svg?style=for-the-badge&logo=v&logoColor=white)](https://www.verilog.com/)
+[![AES](https://img.shields.io/badge/AES-128-red.svg?style=for-the-badge&logo=lock&logoColor=white)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
+
+</div>
+
+## 🎯 Table of Contents
+
+<div align="center">
+
+| 🔍 **Section** | 📝 **Description** |
+|:-------------:|:-------------------|
+| [🔐 Overview](#overview) | Understanding AES-128 Implementation |
+| [✨ Features](#features) | What's Included in This Repo |
+| [🔄 Algorithm Flow](#algorithm-flow) | Visual Encryption/Decryption Process |
+| [📁 File Structure](#file-structure) | Project Organization |
+| [🚀 Getting Started](#getting-started) | Quick Setup Guide |
+| [💡 Usage](#usage) | Code Examples & Implementation |
+| [📊 Simulation Results](#simulation-results) | Waveform Analysis |
+| [📖 Technical Documentation](#technical-documentation) | Deep Dive into AES |
+| [🤝 Contributing](#contributing) | Join the Development |
+| [📝 License](#license) | Legal Information |
+
+</div>
 
 ## 🔐 Overview
 
