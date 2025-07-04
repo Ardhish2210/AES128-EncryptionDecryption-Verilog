@@ -157,7 +157,7 @@ endmodule
 ### Encryption Waveform
 *[Placeholder for encryption simulation waveform]*
 
-![Encryption Waveform](images/encryption_waveform.png)
+![Encryption Waveform](AES128_Encryption/AES_encryption_waveform.png)
 
 ### Decryption Waveform
 *[Placeholder for decryption simulation waveform]*
