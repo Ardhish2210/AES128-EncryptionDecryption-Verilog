@@ -184,12 +184,12 @@ endmodule
 ### Encryption Waveform
 *[Placeholder for encryption simulation waveform]*
 
-![Encryption Waveform](images/encryption_waveform.png)
+![Encryption Waveform](AES128_Encryption/AES_encryption_waveform.png)
 
 ### Decryption Waveform
 *[Placeholder for decryption simulation waveform]*
 
-![Decryption Waveform](images/decryption_waveform.png)
+![Decryption Waveform](AES128_Decryption/AES_decryption_waveform.png)
 
 ### Test Vectors
 The implementation has been verified against NIST test vectors to ensure correctness.
