@@ -1,12 +1,6 @@
-//`include "sub_bytes.v"
-//`include "shift_rows.v" 
-//`include "mix_columns.v"
-//`include "add_round_key.v"
-//`include "aes_sbox.v"
-
-// AES Encryption Round
-// Applies SubBytes → ShiftRows → (MixColumns*) → AddRoundKey
-// Skips MixColumns in the final round
+//This module will help in carrying out all the 4 transformation for each round
+// Round (1 to 9) -> All 4 transformation will be applied
+// Round 10 -> All the transformation will be applied, except the "MIX COLUMNS".
 
 module encrypt_round (
   input  [127:0] in,
@@ -19,27 +13,13 @@ module encrypt_round (
   wire [127:0] shiftrows_out;
   wire [127:0] mixcolumns_out;
 
-  // SubBytes stage
-  sub_bytes SB (
-    .in(in),
-    .out1(subbytes_out)
-  );
+  sub_bytes SB (.in(in), .out1(subbytes_out));
+  shift_rows SR (.in(subbytes_out), .out2(shiftrows_out));
+  mix_columns MC (.in(shiftrows_out), .out3(mixcolumns_out));
 
-  // ShiftRows stage
-  shift_rows SR (
-    .in(subbytes_out),
-    .out2(shiftrows_out)
-  );
-
-  // MixColumns stage (only used if not final round)
-  mix_columns MC (
-    .in(shiftrows_out),
-    .out3(mixcolumns_out)
-  );
-
-  // Final round logic:
-  // If final round, skip MixColumns and apply AddRoundKey directly
-  // Otherwise, AddRoundKey comes after MixColumns
+  // If the "is_final_round" = 1, then the MIX COLUMN transformation will be avoided
+  // The operation performed below is the ADD ROUND KEY transformation
+  
   assign out = is_final_round ? (shiftrows_out ^ key) : (mixcolumns_out ^ key);
 
 endmodule
