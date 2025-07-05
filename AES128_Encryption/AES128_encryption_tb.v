@@ -7,12 +7,8 @@ module AES128_encryption_tb;
   reg  [127:0] key;
   wire [127:0] ciphertext;
 
-  AES128_encryption dut (
-    .plaintext(plaintext),
-    .key(key),
-    .ciphertext(ciphertext)
-  );
-
+  AES128_encryption dut (.plaintext(plaintext), .key(key), .ciphertext(ciphertext));
+  
   initial begin
     $display("Starting AES-128 Encryption Test Vectors...\n");
 
