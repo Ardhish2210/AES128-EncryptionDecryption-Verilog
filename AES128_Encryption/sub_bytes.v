@@ -1,5 +1,6 @@
 // `include "aes_sbox.v"
 
+// 1st Transformation
 module sub_bytes (out1, in);
 
 input [127:0] in;
