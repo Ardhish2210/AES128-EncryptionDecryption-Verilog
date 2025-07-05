@@ -1,3 +1,5 @@
+// This module is basically the HEART behind the generation of all the ROUND key
+
 `include "aes_sbox.v"
 
 module key_expansion (
@@ -6,10 +8,12 @@ module key_expansion (
   output wire [127:0] round_key
 );
 
+  // This function rotates the word by 1 byte ie 8bits towarads left
   function [31:0] rot_word(input [31:0] word);
     rot_word = {word[23:0], word[31:24]};
   endfunction
-
+  
+  // "rcon" stands for ROUND CONSTANT (which will be used in later stages), it is predefined for every round
   function [31:0] rcon(input integer r);
     case (r)
       1:  rcon = 32'h01000000;
@@ -34,7 +38,7 @@ module key_expansion (
   assign W[1] = key[95:64];
   assign W[2] = key[63:32];
   assign W[3] = key[31:0];
-
+  
   genvar i;
   generate
     for (i = 4; i < 44; i = i + 1) begin : key_gen
@@ -45,7 +49,7 @@ module key_expansion (
 
       assign rot_out = rot_word(temp);
 
-      // S-box substitution
+      // S-box matching
       aes_sbox sb0 (.in(rot_out[31:24]), .out(sb[3]));
       aes_sbox sb1 (.in(rot_out[23:16]), .out(sb[2]));
       aes_sbox sb2 (.in(rot_out[15:8]),  .out(sb[1]));
@@ -58,7 +62,7 @@ module key_expansion (
     end
   endgenerate
 
-  // Combine every 4 words into one 128-bit round key
+  // Combining every 4 words into one 128-bit round key
   generate
     for (i = 0; i < 11; i = i + 1) begin : key_blocks
       assign keys[i] = {W[4*i], W[4*i+1], W[4*i+2], W[4*i+3]};
