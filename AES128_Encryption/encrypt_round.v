@@ -1,6 +1,6 @@
 //This module will help in carrying out all the 4 transformation for each round
-// Round (1 to 9) -> All 4 transformation will be applied
-// Round 10 -> All the transformation will be applied, except the "MIX COLUMNS".
+// Round (1 to 9): All 4 transformation will be applied
+// Round 10: All the transformation will be applied, except the "MIX COLUMNS".
 
 module encrypt_round (
   input  [127:0] in,
