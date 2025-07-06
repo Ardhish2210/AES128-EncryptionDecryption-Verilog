@@ -18,7 +18,6 @@ module AES128_decryption (
   wire [127:0] round_keys[0:10];
   genvar i;
 
-  // === Generate All Round Keys ===
   generate
     for (i = 0; i <= 10; i = i + 1) begin : key_schedule
       key_expansion KE (
@@ -29,10 +28,8 @@ module AES128_decryption (
     end
   endgenerate
 
-  // === Initial AddRoundKey with final round key ===
   assign state[0] = ciphertext ^ round_keys[10];
 
-  // === Decryption Rounds 1 to 9 ===
   generate
     for (i = 1; i < 10; i = i + 1) begin : decrypt_rounds
       decrypt_round DR (
@@ -44,7 +41,6 @@ module AES128_decryption (
     end
   endgenerate
 
-  // === Final Round (no InvMixColumns) ===
   decrypt_round FINAL (
     .in(state[9]),
     .key(round_keys[0]),
