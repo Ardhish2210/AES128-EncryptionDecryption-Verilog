@@ -11,7 +11,7 @@
 module decrypt_round (
   input  [127:0] in,
   input  [127:0] key,
-  input          is_final_round,
+  input  is_final_round,
   output [127:0] out
 );
 
@@ -20,27 +20,13 @@ module decrypt_round (
   wire [127:0] addroundkey_out;
   wire [127:0] invmix_out;
 
-  // InvShiftRows stage
-  inverse_ShiftRows ISR (
-    .in(in),
-    .out2(shiftrows_out)
-  );
+  inverse_ShiftRows ISR (.in(in), .out2(shiftrows_out));
+  inverse_SubBytes ISB (.in(shiftrows_out), .out1(subbytes_out));
 
-  // InvSubBytes stage
-  inverse_SubBytes ISB (
-    .in(shiftrows_out),
-    .out1(subbytes_out)
-  );
-
-  // AddRoundKey stage (same in both encryption/decryption)
   assign addroundkey_out = subbytes_out ^ key;
-
-  // InvMixColumns (skipped in final round)
-  inverse_MixColumns IMC (
-    .in(addroundkey_out),
-    .out(invmix_out)
-  );
-
+  
+  inverse_MixColumns IMC (.in(addroundkey_out), .out(invmix_out));
+  
   assign out = is_final_round ? addroundkey_out : invmix_out;
 
 endmodule
