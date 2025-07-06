@@ -15,7 +15,6 @@ module shift_rows (in, out2);
         end
     endgenerate
 
-    // AES ShiftRows transformation
     // Row 0: no shift
     assign state_out[0]  = state_in[0];
     assign state_out[4]  = state_in[4];
@@ -40,7 +39,7 @@ module shift_rows (in, out2);
     assign state_out[11] = state_in[7];
     assign state_out[15] = state_in[11];
 
-    // Recombine output
+    // Recombining the output
     generate
         for(i = 0; i < 16; i = i + 1) begin: output_combine
             assign out2[127 - i*8 -: 8] = state_out[i];
