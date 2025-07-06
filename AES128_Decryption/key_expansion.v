@@ -58,7 +58,7 @@ module key_expansion (
     end
   endgenerate
 
-  // Combine every 4 words into one 128-bit round key
+  // Combining every 4 words into one 128-bit round key
   generate
     for (i = 0; i < 11; i = i + 1) begin : key_blocks
       assign keys[i] = {W[4*i], W[4*i+1], W[4*i+2], W[4*i+3]};
