@@ -8,11 +8,7 @@
 
 // Performs 10 rounds: Initial AddRoundKey + 9 decrypt_rounds + Final decrypt_round (no InverseMixColumns)
 
-module AES128_decryption (
-  input  wire [127:0] ciphertext,
-  input  wire [127:0] key,
-  output wire [127:0] plaintext
-);
+module AES128_decryption (input  wire [127:0] ciphertext, input  wire [127:0] key, output wire [127:0] plaintext);
 
   wire [127:0] state[0:10];
   wire [127:0] round_keys[0:10];
