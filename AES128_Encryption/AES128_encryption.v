@@ -5,11 +5,7 @@
 `include "shift_rows.v"
 `include "mix_columns.v"
 
-module AES128_encryption (
-  input  wire [127:0] plaintext,
-  input  wire [127:0] key,
-  output wire [127:0] ciphertext
-);
+module AES128_encryption (input  wire [127:0] plaintext, input  wire [127:0] key, output wire [127:0] ciphertext);
 
   wire [127:0] state[0:10];
   wire [127:0] round_keys[0:10];
@@ -36,3 +32,4 @@ module AES128_encryption (
   // ROUND-10 (Final) Transformation
   encrypt_round FINAL (.in(state[9]), .key(round_keys[10]), .is_final_round(1'b1), .out(ciphertext));
 endmodule
+
