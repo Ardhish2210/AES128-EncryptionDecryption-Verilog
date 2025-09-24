@@ -11,7 +11,6 @@ module AES128_encryption (input  wire [127:0] plaintext, input  wire [127:0] key
   wire [127:0] round_keys[0:10];
   genvar i;
 
-
   // The below loop will help us fetch all the round keys
   generate
     for (i = 0; i <= 10; i = i + 1) begin : keys
@@ -32,4 +31,5 @@ module AES128_encryption (input  wire [127:0] plaintext, input  wire [127:0] key
   // ROUND-10 (Final) Transformation
   encrypt_round FINAL (.in(state[9]), .key(round_keys[10]), .is_final_round(1'b1), .out(ciphertext));
 endmodule
+
 
